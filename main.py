@@ -13,14 +13,15 @@ def main():
 		num+=1
 		df_temp = pd.read_csv(file)
 		df = process_df(df_temp)
+		print(file)
 		print(df)
 
 		palette = plt.get_cmap('Set1')
-		plt.plot(df['day'], df['change'], marker='', color=palette(num), linewidth=1, alpha=0.9)
+		plt.plot(df['day'], df['value'], marker='', color=palette(num), linewidth=1, alpha=0.9)
 		plt.title("Drawdown Graph", loc='left', fontsize=12, fontweight=0, color='orange')
 		plt.xlabel("Days")
 		plt.ylabel("Change")
-	plt.show()
+	#plt.show()
 
 
 
@@ -29,8 +30,8 @@ def main():
 def process_df(dataframe):
 	# Add new columns for day and % change
 	dataframe["day"] = dataframe.index
-	dataframe["change"] = (100*((dataframe.Open-dataframe.Open.shift(1))/dataframe.Open))
-	dataframe["value"] = dataframe.change.cumsum()
+	dataframe["change"] = (1+(1*((dataframe.Open-dataframe.Open.shift(1))/dataframe.Open)))
+	dataframe["value"] = dataframe.change.cumprod()
 	
 	# Drop extra columns
 	dataframe = dataframe.drop(['Date', 'Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume'], axis=1)
