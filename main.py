@@ -17,11 +17,13 @@ def main():
 		print(df)
 
 		palette = plt.get_cmap('Set1')
-		plt.plot(df['day'], df['value'], marker='', color=palette(num), linewidth=1, alpha=0.9)
-		plt.title("Drawdown Graph", loc='left', fontsize=12, fontweight=0, color='orange')
-		plt.xlabel("Days")
-		plt.ylabel("Change")
-	#plt.show()
+		plt.plot(df['day'], df['value'], marker='', color=palette(num), linewidth=1, alpha=0.5)
+
+	plt.title("Drawdown Graph", loc='left', fontsize=12, fontweight=0, color='orange')
+	plt.xlabel("Days")
+	plt.ylabel("Change")
+	#plt.xscale("log")
+	plt.show()
 
 
 
