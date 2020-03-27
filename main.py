@@ -9,6 +9,7 @@ def main():
 	#print(df)
 	list_of_files = glob.glob("raw_data/*")
 	num = 0
+	plt.style.use('seaborn-darkgrid')
 	for file in list_of_files:
 		num+=1
 		df_temp = pd.read_csv(file)
@@ -16,8 +17,14 @@ def main():
 		print(file)
 		print(df)
 
-		palette = plt.get_cmap('Set1')
-		plt.plot(df['day'], df['value'], marker='', color=palette(num), linewidth=1, alpha=0.5)
+		if(file == "raw_data\\2020_1.csv"):
+			plt.plot(df['day'], df['value'], marker='', color="orange", linewidth=1.5, alpha=1)
+		else:
+			plt.plot(df['day'], df['value'], marker='', color="grey", linewidth=1, alpha=0.5)
+
+
+	# style
+	print(plt.style.available)
 
 	plt.title("Drawdown Graph", loc='left', fontsize=12, fontweight=0, color='orange')
 	plt.xlabel("Days")
