@@ -13,7 +13,7 @@ def main():
 		num+=1
 		df_temp = pd.read_csv(file)
 		df = process_df(df_temp)
-		#print(df)
+		print(df)
 
 		palette = plt.get_cmap('Set1')
 		plt.plot(df['day'], df['change'], marker='', color=palette(num), linewidth=1, alpha=0.9)
@@ -30,6 +30,7 @@ def process_df(dataframe):
 	# Add new columns for day and % change
 	dataframe["day"] = dataframe.index
 	dataframe["change"] = (100*((dataframe.Open-dataframe.Open.shift(1))/dataframe.Open))
+	dataframe["value"] = dataframe.change.cumsum()
 	
 	# Drop extra columns
 	dataframe = dataframe.drop(['Date', 'Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume'], axis=1)
