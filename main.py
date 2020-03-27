@@ -9,7 +9,8 @@ def main():
 
 	for file in list_of_files:
 		df_temp = pd.read_csv(file)
-		process_df(df_temp)
+		df = process_df(df_temp)
+		print(df)
 
 
 def process_df(dataframe):
@@ -22,7 +23,7 @@ def process_df(dataframe):
 	
 	#Drop last row (no change)
 	dataframe.drop(dataframe.head(1).index,inplace=True)
-	print(dataframe)
+	return dataframe
 
 
 
