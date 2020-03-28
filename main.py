@@ -13,21 +13,21 @@ def main():
 	# style
 	plt.style.use('seaborn-darkgrid')
 	# create a color palette
-	palette = plt.get_cmap('Dark2')
-	fig, ax = plt.subplots(figsize=(5, 3))
+	palette = plt.get_cmap('tab10')
+	fig, ax = plt.subplots(figsize=(10, 6))
 
 	num=0
 	for file in list_of_files:
+		num+=1
 		file_label = re.search("\\d+", file).group(0)
 		print(file, file_label)
-		num+=1
 		df_temp = pd.read_csv(file)
 		df = process_df(df_temp)
 		
 		if(file == "raw_data\\2020_1.csv"):
 			ax.plot(df['day'], df['value'], marker='', color="red", linewidth=1.5, alpha=1, label=file_label)
 		else:
-			ax.plot(df['day'], df['value'], marker='', color=palette(num), linewidth=1, alpha=0.4, label=file_label)
+			ax.plot(df['day'], df['value'], marker='', color=palette(num), linewidth=1, alpha=0.6, label=file_label)
 
 	# Add legend
 	plt.legend(loc=1, ncol=2)
