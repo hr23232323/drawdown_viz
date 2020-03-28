@@ -1,7 +1,9 @@
 import pandas as pd
 import numpy as np
 import glob
+import re
 import matplotlib.pyplot as plt
+import matplotlib.ticker as mtick
 
 
 def main():
@@ -10,19 +12,32 @@ def main():
 	list_of_files = glob.glob("raw_data/*")
 	# style
 	plt.style.use('seaborn-darkgrid')
+	# create a color palette
+	palette = plt.get_cmap('Dark2')
+	fig, ax = plt.subplots(figsize=(5, 3))
+
+	num=0
 	for file in list_of_files:
+		file_label = re.search("\\d+", file).group(0)
+		print(file, file_label)
+		num+=1
 		df_temp = pd.read_csv(file)
 		df = process_df(df_temp)
 		
 		if(file == "raw_data\\2020_1.csv"):
-			plt.plot(df['day'], df['value'], marker='', color="orange", linewidth=1.5, alpha=1)
+			ax.plot(df['day'], df['value'], marker='', color="red", linewidth=1.5, alpha=1, label=file_label)
 		else:
-			plt.plot(df['day'], df['value'], marker='', color="grey", linewidth=1, alpha=0.5)
+			ax.plot(df['day'], df['value'], marker='', color=palette(num), linewidth=1, alpha=0.4, label=file_label)
 
-
-	plt.title("Comparing the COVID-19 bear market to others from history", loc='left', fontsize=10, fontweight=0, color='black')
+	# Add legend
+	plt.legend(loc=1, ncol=2)
+	plt.title("Comparing the COVID-19 bear market to others from history", loc='left', fontsize=12, fontweight=0, color='black')
 	plt.xlabel("Days into the bear market", fontsize=12)
 	plt.ylabel("Value of a $10,000 investment", fontsize=12)
+	fmt = '${x:,.0f}'	
+	tick = mtick.StrMethodFormatter(fmt)
+	ax.yaxis.set_major_formatter(tick) 
+	plt.xticks(rotation=25)	
 	#plt.xscale("log")
 	plt.show()
 
