@@ -8,7 +8,7 @@ import matplotlib.ticker as mtick
 
 def main():
 	list_of_files = glob.glob("raw_data/*")
-	#create_main_chart(list_of_files)
+	create_main_chart(list_of_files)
 	create_side_chart(list_of_files)
 
 
@@ -72,7 +72,7 @@ def create_side_chart(list_of_files):
 	num = 0
 	for i in range(1, 10):
 		num+=1
-		file = list_of_files[i]
+		file = list_of_files[i-1]
 		ax = plt.subplot(3, 3, i)
 
 		file_label = re.search("\\d+", file).group(0)
