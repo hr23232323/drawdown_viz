@@ -7,8 +7,13 @@ import matplotlib.ticker as mtick
 
 
 def main():
+	# Load file names
 	list_of_files = glob.glob("raw_data/*")
+
+	# Create main chart
 	create_main_chart(list_of_files)
+
+	# Create side chart
 	create_side_chart(list_of_files)
 
 
